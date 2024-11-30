@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 this project is like stackoverflow
 for this project laravel 11.33.2 version is used
 
