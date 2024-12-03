@@ -22,6 +22,22 @@ this is for migration database files
 ```bash
 npm run build
 ```
+
+to create .env file from env example
+```bash
+cp .env.example .env
+```
+```bash
+php artisan key:generate
+```
+
+```bash
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+```
+
 lastly
 ```bash
 php artisan serve
