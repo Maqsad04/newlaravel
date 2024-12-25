@@ -9,7 +9,7 @@ class Question extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'description', 'user_id', 'comments_disabled'];
+    protected $fillable = ['title', 'description', 'user_id', 'comments_disabled', 'status'];
     
 
     // A Question belongs to a User
@@ -23,4 +23,16 @@ class Question extends Model
     {
         return $this->hasMany(Answer::class);
     }
+
+    protected static function booted()
+    {
+        static::creating(function ($question) {
+            if (is_null($question->status)) {
+                $question->status = 'pending'; // Default status
+            }
+        });
+    }
+
+
+
 }

@@ -40,4 +40,20 @@ class AdminUserController extends Controller
 
         return view('admin.users.index', compact('users'));
     }
+
+
+    public function hellooo()    
+    {
+
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'Unauthorized action.');
+        }
+
+        // Retrieve all users (except the currently logged-in admin)
+        $users = User::where('id', '!=', auth()->id())->get();
+
+
+        
+        return view('admin.dashboard',  compact('users')) ; // Admin dashboard view
+    }
 }

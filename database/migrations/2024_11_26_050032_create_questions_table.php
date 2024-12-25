@@ -13,9 +13,11 @@ return new class extends Migration
 {
     Schema::create('questions', function (Blueprint $table) {
         $table->id();
+        $table->unsignedBigInteger('user_id');  //new 
         $table->string('title');
         $table->string('author')->nullable();  // Make the 'author' field nullable
         $table->text('description');
+        $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');  //new
         $table->foreignId('user_id')->constrained()->onDelete('cascade'); // Links to users table
         $table->timestamps();
     });

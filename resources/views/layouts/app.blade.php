@@ -86,12 +86,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('users.index') }}">Manage Users</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.questions.index') }}">Questions</a>
+                    </li>
                 @endif
             @endauth
 
 
 
                 @auth
+                <li class="nav-item">
+                        <a class="nav-link" href="{{ route('user.index') }}">My Questions</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">{{ auth()->user()->name }}</a>
                     </li>

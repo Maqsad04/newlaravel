@@ -13,4 +13,10 @@ class Controller extends BaseController
     public function hello() {
         return "hello yo what's up";
     }
+
+    public function index()
+    {
+        $questions = auth()->user()->questions; // Get all questions for the logged-in user
+        return view('user.index', compact('questions'));
+    }
 }
