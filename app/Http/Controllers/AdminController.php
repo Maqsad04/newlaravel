@@ -14,7 +14,7 @@ class AdminController extends Controller
     public function index()    
     {
 
-        if (auth()->user()->role !== 'admin') {
+        if (!auth()->user()->hasRole('admin')) {
             abort(403, 'Unauthorized action.');
         }
 

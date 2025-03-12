@@ -1,6 +1,4 @@
-@extends('layouts.app')
 
-@section('content')
 <div class="container">
     <h1>Welcome to the Admin Panel</h1>
     <p>You have admin access.</p>
@@ -13,4 +11,3 @@
         @csrf
     </form>
 </div>
-@endsection

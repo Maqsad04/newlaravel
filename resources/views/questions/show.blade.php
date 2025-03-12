@@ -63,16 +63,30 @@
                     </form>
                 @endif
 
-                @if (auth()->id() === $question->user_id)
+                @if (auth()->id() === $question->user_id && !$answer->highlighted)
                     <!-- Highlight Answer Button -->
                     <form action="{{ route('answers.highlight', $answer) }}" method="POST" class="d-inline">
                         @csrf
                         @method('PATCH')
+                        
                         <button type="submit" class="btn btn-sm btn-success">
-                            {{ $answer->highlighted ? 'Unhighlight' : 'Highlight' }}
+                           this is true answer
                         </button>
                     </form>
                 @endif
+
+                @if ($answer->highlighted )
+                   
+                    <form action="{{ route('answers.unhighlight', $answer) }}" method="POST" class="d-inline">
+                        @csrf
+                        @method('PATCH')
+                        @if (auth()->id() === $question->user_id && $answer->highlighted)
+                        <button type="submit" class="btn btn-sm btn-warning">
+                            this is not true answer
+                        </button>  @endif
+                        <p style="text-align:right; color: green">this is true answer</p>
+                    </form>
+                @endif 
             </div>
         </div>
     @endforeach

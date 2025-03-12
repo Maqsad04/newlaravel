@@ -28,6 +28,11 @@ class QuestionController extends Controller
 
     return view('questions.index', compact('questions'));
 }
+public function maqsad(){
+    $questions = Question::where('status', 'accepted')->latest()->get();
+
+    return view('welcome', compact('questions'));
+}
 
 
 

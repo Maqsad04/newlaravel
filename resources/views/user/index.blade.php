@@ -25,7 +25,7 @@
                 <tr>
                     <td>{{ $question->id }}</td>
                     <td>{{ $question->title }}</td>
-                    <td>{{ $question->body }}</td>
+                    <td>{{ $question->description }}</td>
                     <td>
                         @if ($question->status == 'pending')
                             <span class="badge bg-warning">Pending</span>

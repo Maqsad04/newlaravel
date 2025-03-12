@@ -82,7 +82,7 @@
             <ul class="navbar-nav ms-auto">
 
             @auth
-                @if (auth()->user()->role === 'admin')
+                @if (auth()->user()->hasRole('admin'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('users.index') }}">Manage Users</a>
                     </li>

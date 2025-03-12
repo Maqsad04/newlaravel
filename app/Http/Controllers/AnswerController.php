@@ -27,7 +27,6 @@ class AnswerController extends Controller
     {
         $question = $answer->question;
 
-        // Ensure only the user who created the question can highlight an answer
         if (auth()->id() !== $question->user_id) {
             abort(403, 'Unauthorized action.');
         }
@@ -42,6 +41,23 @@ class AnswerController extends Controller
         return redirect()->route('questions.show', $question->id)
                         ->with('success', 'Answer highlighted successfully.');
     }
+
+    public function unhighlightAnswer(Answer $answer)
+{
+    $question = $answer->question;
+
+    if (auth()->id() !== $question->user_id) {
+        abort(403, 'Unauthorized action.');
+    }
+
+    // Unhighlight the selected answer
+    $answer->highlighted = false;
+    $answer->save();
+
+    return redirect()->route('questions.show', $question->id)
+                    ->with('success', 'Answer unhighlighted successfully.');
+}
+
 
     public function destroy(Answer $answer)
     {

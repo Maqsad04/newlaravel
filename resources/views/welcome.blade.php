@@ -38,9 +38,9 @@
             <h2 class="mb-3">Latest Questions</h2>
             <div class="list-group">
                 @foreach ($questions as $question)
-                    <a href="#" class="list-group-item list-group-item-action">
+                    <a href="{{ route('questions.show', $question->id) }}" class="list-group-item list-group-item-action">
                         <h5 class="mb-1 text-primary">{{ $question->title }}</h5>
-                        <p class="mb-1">{{ $question->description }}</p>
+                        <p class="mb-1">{{ Str::limit($question->description, 70, '...') }}</p>
                         <small>Asked by <strong>{{ $question->author }}</strong> {{ $question->created_at->diffForHumans() }} · {{ $question->answers_count }} answers</small>
                     </a>
                 @endforeach

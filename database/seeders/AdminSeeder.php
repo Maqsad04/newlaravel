@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
                 'name' => 'Maqsad',
                 'email' => 'maqsad04@gmail.com',
                 'password' => Hash::make('102938md'), // Hash the password
-                'role' => 'admin', // Set the role to 'admin'
+                 // Set the role to 'admin'
             ]);
         } else {
             $this->command->info('Admin user already exists.');

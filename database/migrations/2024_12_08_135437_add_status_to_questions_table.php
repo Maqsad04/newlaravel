@@ -12,19 +12,22 @@ return new class extends Migration
     public function up()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->string('status', ['pending', 'accepted', 'rejected'])->default('pending')->after('description');
+            // Check if the 'status' column does not exist before adding it
+            if (!Schema::hasColumn('questions', 'status')) {
+                $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending')->after('description');
+            }
         });
     }
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {
         Schema::table('questions', function (Blueprint $table) {
-            $table->dropColumn('status');
+            if (Schema::hasColumn('questions', 'status')) {
+                $table->dropColumn('status');
+            }
         });
     }
 };

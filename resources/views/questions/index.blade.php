@@ -20,7 +20,7 @@
                     <span class="text-muted">• {{ $question->created_at->diffForHumans() }}</span>
                 </p>
                 <p class="card-text text-truncate" style="max-width: 100%;">
-                    {{ $question->description }}
+                    {{ Str::limit($question->description, 70, '...')}}
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
                     <a href="{{ route('questions.show', $question->id) }}" class="btn btn-sm btn-outline-primary">View Details</a>

@@ -13,12 +13,12 @@ class AdminUserController extends Controller
     public function destroy(User $user)
     {
         // Check if the logged-in user is an admin
-        if (auth()->user()->role !== 'admin') {
+        if (!auth()->user()->hasRole('admin')) {
             abort(403, 'Unauthorized action.');
         }
 
         // Prevent the admin from deleting their own account
-        if (auth()->id() === $user->id) {
+        if (auth()->user()->hasRole('user')) {
             return redirect()->route('users.index')->with('error', 'You cannot delete your own account.');
         }
 
@@ -31,9 +31,9 @@ class AdminUserController extends Controller
     public function index()
     {
         // Ensure only admins can access this page
-        if (auth()->user()->role !== 'admin') {
-            abort(403, 'Unauthorized action.');
-        }
+        // if (auth()->user()->role !== 'admin') {
+        //     abort(403, 'Unauthorized action.');
+        // }
 
         // Retrieve all users (except the currently logged-in admin)
         $users = User::where('id', '!=', auth()->id())->get();
@@ -45,9 +45,9 @@ class AdminUserController extends Controller
     public function hellooo()    
     {
 
-        if (auth()->user()->role !== 'admin') {
-            abort(403, 'Unauthorized action.');
-        }
+        // if (auth()->user()->role !== 'admin') {
+        //     abort(403, 'Unauthorized action.');
+        // }
 
         // Retrieve all users (except the currently logged-in admin)
         $users = User::where('id', '!=', auth()->id())->get();

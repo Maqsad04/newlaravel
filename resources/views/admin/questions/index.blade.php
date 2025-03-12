@@ -24,7 +24,7 @@
                 <tr>
                     <td>{{ $question->id }}</td>
                     <td>{{ $question->title }}</td>
-                    <td>{{ $question->body }}</td>
+                    <td>{{ Str::limit($question->description, 50, '...') }}</td>
                     <td>
                         <form action="{{ route('admin.questions.accept', $question->id) }}" method="POST" style="display:inline;">
                             @csrf

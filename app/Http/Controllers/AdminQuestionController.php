@@ -26,23 +26,7 @@ class AdminQuestionController extends Controller
 
         return redirect()->route('admin.questions.index')->with('success', 'Question accepted and moved to the main panel.');
     }
-
-    // Reject a question
-    // public function reject($id)
-    // {
-    //     $question = Question::findOrFail($id);
-    //     $question->status = 'rejected';
-    //     $question->save();
-    //     // unset($question);
-
-    //     // Notify the user about the rejection
-    //     $user = $question->user;
-    //     $user->notify(new QuestionRejectedNotification($question));
-
-    //     return redirect()->route('admin.questions.index')->with('success', 'Question rejected, and the user has been notified.');
-    // }
-
-    
+   
 
     public function reject($id)
     {
@@ -71,19 +55,6 @@ class AdminQuestionController extends Controller
 
     return redirect()->back()->with('success', 'Question status updated successfully.');
 }
-
-
-
-// public function approve($id)
-// {
-//     $question = Question::findOrFail($id);
-//     $question->status = 'approved';
-//     $question->save();
-
-//     return redirect()->back()->with('success', 'Question approved successfully.');
-// }
-
-
 
 
 
