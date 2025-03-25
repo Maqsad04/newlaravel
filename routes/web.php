@@ -6,6 +6,7 @@ use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminQuestionController;
 
 
@@ -26,7 +27,7 @@ Route::post('/questions', [QuestionController::class, 'store'])->name('questions
 Route::get('/questions/{question}', [QuestionController::class, 'show'])->name('questions.show')->middleware('auth');
 
 
-//delete answer andquestion
+//delete answer and question
 Route::delete('/questions/{question}', [QuestionController::class, 'destroy'])->name('questions.destroy');
 Route::delete('/answers/{answer}', [AnswerController::class, 'destroy'])->name('answers.destroy');
 
@@ -41,12 +42,11 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/my-questions', [Controller::class, 'index'])->name('user.index');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+    Route::get('/profile/questions', [ProfileController::class, 'getQuestions'])->name('profile.questions');
 });
 
 
-
-
-Route::get('/three', [QuestionController::class, 'create'])->name('question.create')->middleware('auth');
 
 Route::post('/questions/{question}/answers', [AnswerController::class, 'store'])->name('answers.store')->middleware('auth');
 
@@ -67,9 +67,15 @@ Route::patch('/answers/{answer}/unhighlight', [AnswerController::class, 'unhighl
 
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
     Route::get('/questions', [AdminQuestionController::class, 'index'])->name('admin.questions.index'); // List of questions
+    // Route::post('/questions/{id}/status', [AdminQuestionController::class, 'updateStatus'])->name('questions.updateStatus');
     Route::post('/questions/{id}/accept', [AdminQuestionController::class, 'accept'])->name('admin.questions.accept'); // Accept question
     Route::post('/questions/{id}/reject', [AdminQuestionController::class, 'reject'])->name('admin.questions.reject'); // Reject question
+    Route::post('/questions/{id}/status', [AdminQuestionController::class, 'updateStatus'])->name('questions.updateStatus');
+    Route::get('/questions/data', [AdminQuestionController::class, 'getQuestionsData'])->name('admin.questions.data');
+    Route::patch('/users/{user}/toggle-block', [AdminUserController::class, 'toggleBlock'])->name('admin.users.toggleBlock');
+    Route::get('/youcan', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
 
@@ -80,28 +86,6 @@ Route::get('/debug-user', function () {
 return Auth::user();
 });
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
-Route::get('/youcan', [AdminController::class, 'index'])->name('admin.dashboard');
-});
-
-
-Route::get('/test', function () {
-    if (auth()->user()->hasRole('user')) {
-        return 'User has the admin role.';
-    }
-    return 'User does not have the admin role.';
-})->middleware(['auth']);
-
-
-Route::get('/check-role', function () {
-    $user = auth()->user();
-    $roles = $user->getRoleNames();
-
-    return response()->json([
-        'user' => $user->name,
-        'roles' => $roles,
-    ]);
-})->middleware('auth');
 
 Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

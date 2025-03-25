@@ -25,7 +25,7 @@
                 </form>
             @endif
 
-            @if (auth()->id() === $question->user_id || auth()->user()->role === 'admin')
+            @if (auth()->id() === $question->user_id || auth()->user()->hasRole('admin'))
                 <!-- Delete Question Button -->
                 <form action="{{ route('questions.destroy', $question) }}" method="POST" class="d-inline">
                     @csrf

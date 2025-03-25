@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
+    // use SoftDeletes;
 
     protected $fillable = ['title', 'description', 'user_id', 'comments_disabled', 'status'];
     
@@ -28,7 +29,7 @@ class Question extends Model
     {
         static::creating(function ($question) {
             if (is_null($question->status)) {
-                $question->status = 'pending'; // Default status
+                $question->status = 'accepted'; // Default status
             }
         });
     }

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('questions', function (Blueprint $table) {
             // Check if the 'status' column does not exist before adding it
             if (!Schema::hasColumn('questions', 'status')) {
-                $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending')->after('description');
+                $table->enum('status', ['accepted', 'deleted'])->default('accepted')->after('description');
             }
         });
     }

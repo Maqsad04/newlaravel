@@ -1,20 +1,24 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
-
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
     content: [
-        './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
-        './storage/framework/views/*.php',
-        './resources/**/*.blade.php',
-        './resources/**/*.js',
-        './resources/**/*.vue',
+      "./resources/**/*.{html,js,jsx,ts,tsx,php}",
+      "./components/**/*.{js,jsx,ts,tsx}",
+      "./views/**/*.{php}",
     ],
     theme: {
-        extend: {
-            fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
-            },
+      extend: {
+        animation: {
+          'fade-in': 'fadeIn 0.8s ease-out',
         },
+        keyframes: {
+          fadeIn: {
+            '0%': { opacity: '0', transform: 'translateY(10px)' },
+            '100%': { opacity: '1', transform: 'translateY(0)' },
+          },
+        },
+      },
     },
     plugins: [],
-};
+    prefix: 'tw-',
+    corePlugin: { preflight: false },
+  };

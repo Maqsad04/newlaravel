@@ -31,8 +31,8 @@
                             <span class="badge bg-warning">Pending</span>
                         @elseif ($question->status == 'accepted')
                             <span class="badge bg-success">Accepted</span>
-                        @elseif ($question->status == 'rejected')
-                            <span class="badge bg-danger">Rejected</span>
+                        @elseif ($question->status == 'deleted')
+                            <span class="badge bg-danger">Deleted</span>
                         @endif
                     </td>
                     <td>{{ $question->created_at->format('d M Y, H:i') }}</td>

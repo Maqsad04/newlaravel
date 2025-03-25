@@ -30,10 +30,6 @@ class AdminUserController extends Controller
 
     public function index()
     {
-        // Ensure only admins can access this page
-        // if (auth()->user()->role !== 'admin') {
-        //     abort(403, 'Unauthorized action.');
-        // }
 
         // Retrieve all users (except the currently logged-in admin)
         $users = User::where('id', '!=', auth()->id())->get();
@@ -41,13 +37,18 @@ class AdminUserController extends Controller
         return view('admin.users.index', compact('users'));
     }
 
+    public function toggleBlock(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+        $user->is_blocked = !$user->is_blocked; // Toggle the is_blocked field
+        $user->save();
+
+        return redirect()->back()->with('success', 'User block status updated successfully.');
+    }
+
 
     public function hellooo()    
     {
-
-        // if (auth()->user()->role !== 'admin') {
-        //     abort(403, 'Unauthorized action.');
-        // }
 
         // Retrieve all users (except the currently logged-in admin)
         $users = User::where('id', '!=', auth()->id())->get();
